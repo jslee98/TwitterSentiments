@@ -1,0 +1,2469 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Circles</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+	div.info {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+
+	opacity: 0.8;
+	background-color: #7cafc0;
+    border: 1px solid #005d6d;
+
+	font-size: 18px;
+	font-family: 'Roboto','sans-serif';
+    }
+
+    </style>
+  </head>
+  <body>
+<div id="map"></div>
+
+
+<div id="info" class="info">
+Click on the circle to see the information!
+</div>
+
+
+
+    <script>
+
+// This example creates circles on the map
+
+// First, create an object containing LatLng and population for each city.
+var citymap = {
+
+	//remember the format:
+	//id664873525564559360: {center: {lat: 41.40879414, lng: 2.1776104},color: '#0052A4',user: 'carlesapm',device: 'Instagram',time: 'Thu Nov 12 19:32:55 CET 2015',text: 'Aparicions celestials durant el rodatge de #emdicmanel #apmtv3 #estrelladammcat #igers #igersbcn� <a href="https://t.co/eYO1F5ySCp" target="_blank"> link </a>'},
+
+
+  id1106193849712549889: {center: {lat: 40.6747, lng: -73.3932},color: '#0000FF',user: 'adamxparsons 1106193849712549889 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:02:20 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'you know who else loves pie....? @ Copiague, New York <a href="https://t.co/bRq7ioaBaM" target="_blank"> link </a>',},
+
+
+
+
+
+  id1105903450724790272: {center: {lat: 40.7602619, lng: -73.9932872},color: '#008000',user: 'tmj_NYC_adm 1105903450724790272 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:48:24 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'If jobs with titles like "Customer support manager/ Sr. Customer support staff-Manhattan,NY" sound appealing to you… <a href="https://t.co/xsgFY0AaPz" target="_blank"> link </a>',},
+  id1105899682809692160: {center: {lat: 40.667602, lng: -73.738989},color: '#0000FF',user: '511NY 1105899682809692160 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:33:25 +0000 2019',locations: '0',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #BeltSystemLaureltonParkway Both directions from Elmont Road to Brookville Blvd ',},
+
+
+
+
+
+
+
+
+  id1106194048593862656: {center: {lat: 40.887529, lng: -73.878011},color: '#0000FF',user: '511NYC 1106194048593862656 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:03:07 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #4Line Both directions from Woodlawn Station to Burnside Avenue Station <a href="https://t.co/rwQcyxoMnx" target="_blank"> link </a>',},
+  id1106193930389999617: {center: {lat: 40.74479377, lng: -73.99176928},color: '#0000FF',user: 'shellyshenoy 1106193930389999617 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:02:39 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Life glimpse: (Wait for it...  ) Yesterday morning I recorded the phone/messaging voicemail system for a global comp… <a href="https://t.co/yxZvyEMYOv" target="_blank"> link </a>',},
+
+  id1105121424279306240: {center: {lat: 40.7279494, lng: -73.9915334},color: '#008000',user: 'BrazilDemocracy 1105121424279306240 ·+',device: '<a href="http://www.squarespace.com" rel="nofollow">Squarespace</a>',time: 'Mon Mar 11 15:00:54 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'POS',text: 'Activists and academics in New York will honor Councilwoman Marielle Franco, on the anniversary of her unsolved ass… <a href="https://t.co/LBjvi2MytO" target="_blank"> link </a>',},
+
+
+
+  id1105121445636644864: {center: {lat: 40.75356409, lng: -73.98360729},color: '#008000',user: 'Ayebia 1105121445636644864 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 15:00:59 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'It’s my sister’s birthday...Thank you God for another blessed year for my baby girl. Who loves you more than me? On… <a href="https://t.co/Ep26bLDjgX" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105903112060047360: {center: {lat: 40.76122, lng: -73.26349},color: '#0000FF',user: 'greatsouthbay 1105903112060047360 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Wed Mar 13 18:47:03 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Join us all weekend long as we celebrate the drunkest holiday of the year! There will be food trucks serving Irish… <a href="https://t.co/WILj6JcGUs" target="_blank"> link </a>',},
+
+
+
+
+
+
+  id1105899596180586496: {center: {lat: 40.84651, lng: -73.86101},color: '#0000FF',user: 'everylotnyc 1105899596180586496 ·+',device: '<a href="https://fakeisthenewreal.org" rel="nofollow">every lot nyc</a>',time: 'Wed Mar 13 18:33:05 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '847 Morris Park Avenue, the Bronx <a href="https://t.co/1L9CM1CkYQ" target="_blank"> link </a>',},
+
+
+
+  id1105902455311794176: {center: {lat: 40.836299, lng: -73.873703},color: '#0000FF',user: '511NY 1105902455311794176 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:44:26 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #BronxRiverParkway SB at I-95 Cross Bronx Expressway <a href="https://t.co/GFRgCLQCQY" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105898040400011265: {center: {lat: 40.70059523, lng: -73.32423478},color: '#0000FF',user: 'DJManiakNYC 1105898040400011265 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Wed Mar 13 18:26:54 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'I m at LIRR - Babylon Station - @lirrdeals4u in Babylon, NY <a href="https://t.co/jxrJ96IoS5" target="_blank"> link </a>',},
+  id1105903715255500800: {center: {lat: 40.925214, lng: -75.067464},color: '#0000FF',user: '511NY 1105903715255500800 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:49:27 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #I80 WB at East of Exit 4 - NJ 94/US 46 <a href="https://t.co/CcFIpoPEYS" target="_blank"> link </a>',},
+  id1106193420509478917: {center: {lat: 40.65, lng: -73.95},color: '#FF0000',user: 'Joagirl_vzla 1106193420509478917 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:00:38 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEG',text: 'Nuevo tráiler #avengersendgame  Cada vez falta menos   ❤ en Brooklyn, New York <a href="https://t.co/qT5OIhOrN9" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105121382432677893: {center: {lat: 40.77046398, lng: -73.95693784},color: '#008000',user: 'unleashfit 1105121382432677893 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 15:00:44 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: '  Mondat  (3weeks)  “Fitness is not about being better than someone else...it’s about being better than you used to b… <a href="https://t.co/kRdXR9f4IC" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105902929805017088: {center: {lat: 40.738987, lng: -73.993716},color: '#0000FF',user: '511NY 1105902929805017088 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:46:19 +0000 2019',locations: '0',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #ABCDEFGJMNQRWShuttleSIRAnd7 at the 5 Boroughs ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105899680720977921: {center: {lat: 40.677101, lng: -74.001602},color: '#0000FF',user: '511NY 1105899680720977921 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:33:25 +0000 2019',locations: '2',orgs: '0',people: '1',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #I278 Both directions from Exit 26 - Hamilton Avenue to Queens-Kings County Line; Koskuisko Bridge ',},
+
+
+
+
+
+  id1106193609844494337: {center: {lat: 40.666599, lng: -73.995201},color: '#0000FF',user: '511NYC 1106193609844494337 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:01:23 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #NY27 WB from START ROUTE NY 27; I-278 - Gowanus Expy; 3rd Avenue to Church Avenue <a href="https://t.co/1yvgCna463" target="_blank"> link </a>',},
+  id1105903155017990144: {center: {lat: 40.7609389, lng: -73.9781905},color: '#0000FF',user: 'tmj_nyc_jobs 1105903155017990144 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:47:13 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Can you recommend anyone for this job? VP - Tech Solutions TDB - <a href="https://t.co/PRIBbwHymu" target="_blank"> link </a>#NewYork, NY ',},
+
+
+
+  id1105902452585521152: {center: {lat: 40.836299, lng: -73.873703},color: '#0000FF',user: '511NYC 1105902452585521152 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:44:26 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #BronxRiverParkway SB at I-95 Cross Bronx Expressway <a href="https://t.co/HHH848jPon" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+  id1105878617744072704: {center: {lat: 40.7599054, lng: -73.9696374},color: '#0000FF',user: 'GodivaJobs 1105878617744072704 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 17:09:43 +0000 2019',locations: '3',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Want to work at Godiva? We re hiring in New York, NY! Click for details: <a href="https://t.co/KBMYGMpo4s" target="_blank"> link </a>#Retail #TheEmpireState ',},
+
+  id1106193948278689792: {center: {lat: 40.67, lng: -73.413},color: '#0000FF',user: '511NY 1106193948278689792 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:44 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY27A Both directions at Riverside Avenue <a href="https://t.co/GJv1I2Da29" target="_blank"> link </a>',},
+
+  id1105878620449525761: {center: {lat: 40.75938718, lng: -73.97575148},color: '#0000FF',user: 'santopoliti 1105878620449525761 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Wed Mar 13 17:09:44 +0000 2019',locations: '3',orgs: '1',people: '1',links: '1',sentiment: 'NEU',text: 'Lunch with Loulou and @avram_levi (@ Fig & Olive in New York, NY) <a href="https://t.co/JUjSxnu51E" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+  id1106193908210565120: {center: {lat: 40.75676, lng: -73.9929},color: '#0000FF',user: 'Himura84 1106193908210565120 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:02:34 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '#worldtradecenter #groundzero #newyork @ 9/11 Memorial Site <a href="https://t.co/W5ueuIwzdj" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106194057083174914: {center: {lat: 40.6935, lng: -73.507797},color: '#0000FF',user: '511nyLongIsland 1106194057083174914 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:03:09 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY105 Both directions from Wantagh Avenue to Hicksville Road; NY 107; END ROUTE; Jerusalem Avenue <a href="https://t.co/6ri7lN60Xr" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+  id1105899692586602497: {center: {lat: 40.667602, lng: -73.738989},color: '#0000FF',user: '511NYC 1105899692586602497 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:33:27 +0000 2019',locations: '0',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #BeltSystemLaureltonParkway Both directions from Elmont Road to Brookville Blvd ',},
+
+
+
+
+
+
+
+
+
+
+  id1105904030910341120: {center: {lat: 41.0339862, lng: -73.7629097},color: '#0000FF',user: 'tmj_RAM_banking 1105904030910341120 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:50:42 +0000 2019',locations: '0',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'Looking to score a job at Kelly Services? You re in luck. Click the link in our bio for the job description and inf… <a href="https://t.co/Bz9upXcEqT" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1105902097969623043: {center: {lat: 40.827375, lng: -73.879639},color: '#0000FF',user: 'JulioCsarJr 1105902097969623043 ·+',device: '<a href="https://onloft.com/tweetlogix" rel="nofollow">Tweetlogix</a>',time: 'Wed Mar 13 18:43:01 +0000 2019',locations: '0',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: '@carladeccio cierto! ',},
+
+
+
+
+  id1105122777399476226: {center: {lat: 40.77112, lng: -73.97419},color: '#0000FF',user: 'LegiScanNY 1105122777399476226 ·+',device: '<a href="http://legiscan.com/" rel="nofollow">eLobbyist</a>',time: 'Mon Mar 11 15:06:16 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'S00221 [NEW] Relates to removing the lifetime ban on jury duty for convicted felons who have completed their senten… <a href="https://t.co/uUdtbwPtHx" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+  id1106193862614269954: {center: {lat: 40.67, lng: -73.413},color: '#0000FF',user: '511nyLongIsland 1106193862614269954 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:02:23 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY27A Both directions at Riverside Avenue <a href="https://t.co/TYIasrodNF" target="_blank"> link </a>',},
+
+
+
+  id1105903429472403457: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511NYC 1105903429472403457 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:48:18 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #4Line NB from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/u5z8OYcd20" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106194043212648453: {center: {lat: 40.8092, lng: -73.1856},color: '#0000FF',user: '511NY 1106194043212648453 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:03:06 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Construction on #NY454 Both directions from I-495 to Roosevelt Avenue <a href="https://t.co/HpYOw4755T" target="_blank"> link </a>',},
+  id1106193922290868227: {center: {lat: 40.642945, lng: -74.648323},color: '#0000FF',user: '511NY 1106193922290868227 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:37 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #I78 Both directions from Exit 29 - I-287/US 202/US 206 to Exit 41 - Dale Rd to Plainfield Ave <a href="https://t.co/WCrQWlWZ94" target="_blank"> link </a>',},
+
+
+
+
+  id1106194020370432000: {center: {lat: 40.7097931, lng: -73.7949142},color: '#0000FF',user: 'madeRICH 1106194020370432000 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:03:01 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Always trust the progress ! Always book your tattoo appointment with me ! Always leave a deposit ! Always tip meeee… <a href="https://t.co/YbfYS9tPXi" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105122835310276608: {center: {lat: 40.7779, lng: -73.9675},color: '#0000FF',user: 'rebmark 1105122835310276608 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 15:06:30 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '#webbing covered #scaffolding #moiré at southeast corner of 1st & 80th.  #ArtOnLink #documentingspace @ Manhattan,… <a href="https://t.co/SeYIN6IWZg" target="_blank"> link </a>',},
+
+
+  id1105903430529417216: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511NYC 1105903430529417216 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:48:19 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #5Line from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/u5z8OYcd20" target="_blank"> link </a>',},
+
+  id1105904065597317120: {center: {lat: 40.7207559, lng: -74.0007613},color: '#008000',user: 'HennyOmega 1105904065597317120 ·+',device: '<a href="http://www.squarespace.com" rel="nofollow">Squarespace</a>',time: 'Wed Mar 13 18:50:50 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'POS',text: 'THIS WEEK IN WWE: To get to #WrestleMania, Kofi Kingston must run the gauntlet... again. Plus, what s next for The… <a href="https://t.co/FrzmcEYEr9" target="_blank"> link </a>',},
+
+
+  id1106194055417999361: {center: {lat: 40.8346, lng: -73.3815},color: '#0000FF',user: '511NY 1106194055417999361 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:03:09 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY25 Both directions at Totten Avenue <a href="https://t.co/mGTZSGHVtH" target="_blank"> link </a>',},
+
+
+  id1105900003015516163: {center: {lat: 40.835899, lng: -73.870101},color: '#0000FF',user: '511NYC 1105900003015516163 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:34:42 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Incident on #I95 SB from Rosedale Avenue; Ramp to START ROUTE I-95; George Washington Bridge <a href="https://t.co/o55poHKiuh" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+  id1106193379250106378: {center: {lat: 40.68727, lng: -73.61791},color: '#008000',user: 'TotalTrafficNYC 1106193379250106378 ·+',device: '<a href="http://www.sigalert.com/Map.asp?region=New+York" rel="nofollow">TTN NYC traffic</a>',time: 'Thu Mar 14 14:00:28 +0000 2019',locations: '2',orgs: '0',people: '1',links: '0',sentiment: 'POS',text: 'Accident, left lane blocked in #Baldwin on The Southern St Pkwy EB at Grand Ave, stop and go traffic back to Eagle Ave, delay of 11 mins ',},
+
+
+
+
+
+
+
+  id1106193858680025092: {center: {lat: 40.889198, lng: -73.8152},color: '#0000FF',user: '511NYMidHudson 1106193858680025092 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:02:22 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #HutchinsonRiverParkwayWestchester NB from Bronx-Westchester County Line; Exit 7 - US 1; <a href="START...https://t.co/1PSS3DghNl" target="_blank"> link </a>',},
+
+  id1105102220377448453: {center: {lat: 40.74203686, lng: -73.98996983},color: '#0000FF',user: 'bccdny 1105102220377448453 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Mon Mar 11 13:44:35 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'I m at Birreria at Eataly in New York, NY <a href="https://t.co/OKj3DEH1ic" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105902266135932928: {center: {lat: 40.7555465, lng: -73.9808543},color: '#0000FF',user: 'tmj_nyc_pharm 1105902266135932928 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:43:41 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Have you ever had a role like "Japanese Chemical company seeks a Sales Assistant."? What did you like most about th… <a href="https://t.co/vlcjIegU80" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105899091903594497: {center: {lat: 40.722455, lng: -73.988556},color: '#0000FF',user: 'HoodlineWire 1105899091903594497 ·+',device: '<a href="http://www.twitter.com" rel="nofollow">HoodlineTweetBot</a>',time: 'Wed Mar 13 18:31:04 +0000 2019',locations: '3',orgs: '0',people: '0',links: '2',sentiment: 'NEU',text: 'NEW YORK CITY - Empire Gyro brings Mediterranean fare to the Lower East Side <a href="https://t.co/uEZWn6QfnV" target="_blank"> link </a><a href="https://t.co/pJ71K2cdYT" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+  id1105902856375169024: {center: {lat: 40.6538786, lng: -73.8389198},color: '#0000FF',user: 'tmj_nyc_finance 1105902856375169024 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:46:02 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Can you recommend anyone for this job in NY? <a href="https://t.co/ctmFWp9y3E" target="_blank"> link </a>#Finance ',},
+
+  id1106193528357617666: {center: {lat: 40.7142, lng: -74.0064},color: '#0000FF',user: 'IAM_TITOMONTANA 1106193528357617666 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:01:03 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Ayo panoramicfilms @dweather5 @ForeignDre1 @ProT845 @TheReal_Uneek jalitha_ @purplelabelyung @sourdeezmusic Its go… <a href="https://t.co/GPeHmLj1Qf" target="_blank"> link </a>',},
+
+
+
+
+
+
+  id1103758992730394624: {center: {lat: 40.77112, lng: -73.97419},color: '#0000FF',user: 'LegiScanNY 1103758992730394624 ·+',device: '<a href="http://legiscan.com/" rel="nofollow">eLobbyist</a>',time: 'Thu Mar 07 20:47:05 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'A06303 [NEW] Requires the preparation of a neighborhood impact statement prior to the construction of a homeless sh… <a href="https://t.co/NNT6zp0a9D" target="_blank"> link </a>',},
+  id1106193942591213568: {center: {lat: 40.889907, lng: -74.273798},color: '#0000FF',user: '511NY 1106193942591213568 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:42 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #US46 EB from East of CR 613/Passaic Ave to Willowbrook Mall Exit <a href="https://t.co/mK4sSPwKah" target="_blank"> link </a>',},
+
+  id1105899788682309632: {center: {lat: 40.826892, lng: -73.878253},color: '#0000FF',user: 'JulioCsarJr 1105899788682309632 ·+',device: '<a href="https://onloft.com/tweetlogix" rel="nofollow">Tweetlogix</a>',time: 'Wed Mar 13 18:33:50 +0000 2019',locations: '0',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: '@lapizconciente quédate aquí, IG es pa los normales, aquí es que te sale estar ',},
+
+
+  id1105898710175670273: {center: {lat: 40.7127837, lng: -74.0059413},color: '#0000FF',user: 'ParsonsJobs 1105898710175670273 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:29:33 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'We re hiring! Read about our latest job opening here: Principal Technical Consultant - <a href="https://t.co/Cg07jHqNfp" target="_blank"> link </a>#Veterans #Engineering ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105899690925703169: {center: {lat: 40.734298, lng: -73.722702},color: '#0000FF',user: '511NYC 1105899690925703169 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:33:27 +0000 2019',locations: '3',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #BeltSystemCrossIslandParkway Both directions from Hillside Avenue; NY 25B to Linden Boulevard ',},
+
+
+  id1106194012946481154: {center: {lat: 40.720882, lng: -74.000988},color: '#0000FF',user: 'jhuntington 1106194012946481154 ·+',device: '<a href="http://www.squarespace.com" rel="nofollow">Squarespace</a>',time: 'Thu Mar 14 14:02:59 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Interviewed on DCSoundOp--Part 2 Available Now!  <a href="https://t.co/p08EZYgHlG" target="_blank"> link </a>',},
+
+
+
+
+  id1106193487500840960: {center: {lat: 40.887529, lng: -73.878011},color: '#0000FF',user: '511NYC 1106193487500840960 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:00:54 +0000 2019',locations: '3',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #4Line Both directions from Woodlawn Station to Burnside Avenue Station ',},
+
+
+
+
+
+
+
+
+
+
+  id1106194052934963200: {center: {lat: 40.6735, lng: -73.2724},color: '#0000FF',user: '511nyLongIsland 1106194052934963200 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:03:08 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #RobertMosesCauseway NB at Great South Bay Bridge <a href="https://t.co/jb8UiSgTp8" target="_blank"> link </a>',},
+
+
+
+
+
+  id1105902776515588098: {center: {lat: 41.9046012, lng: -71.8689917},color: '#0000FF',user: 'tmj_rip_nursing 1105902776515588098 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:45:43 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'This job is now open at PSA Healthcare in #Putnam, CT. Follow us and turn on mobile alerts to hear about jobs like… <a href="https://t.co/h4MMxLlZZq" target="_blank"> link </a>',},
+
+
+
+
+
+
+  id1106194047830495232: {center: {lat: 40.758098, lng: -73.622802},color: '#0000FF',user: '511NY 1106194047830495232 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:03:07 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NorthernStateParkway WB from Exit 31A - Meadowbrook State Parkway to Exit 25 - Lakeville <a href="Road;...https://t.co/imQ6gpqrNS" target="_blank"> link </a>',},
+
+
+
+  id1105899691659669504: {center: {lat: 40.677101, lng: -74.001602},color: '#0000FF',user: '511NYC 1105899691659669504 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:33:27 +0000 2019',locations: '2',orgs: '0',people: '1',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #I278 Both directions from Exit 26 - Hamilton Avenue to Queens-Kings County Line; Koskuisko Bridge ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105898687241297920: {center: {lat: 43.1496, lng: -77.58602},color: '#0000FF',user: 'mansawearnita 1105898687241297920 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Wed Mar 13 18:29:28 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Skirts galore! Shop MansaWear...367 Park Ave./MansaWear.com #parkavenue #shoplocal #mansawear #custommade @ MansaWe… <a href="https://t.co/yOUv5U6U4A" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193501547454464: {center: {lat: 41.0307, lng: -73.7622},color: '#0000FF',user: 'ruffmmoma 1106193501547454464 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:00:57 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Good Morning Everyone! Life Is Too Short! Tell Someone I Love You!   Enjoy Your Day! God Bless!    ❤️    ❤️    ❤️ @ White… <a href="https://t.co/4BBTd9IwdU" target="_blank"> link </a>',},
+  id1106193931040145409: {center: {lat: 40.889907, lng: -74.273798},color: '#0000FF',user: '511NY 1106193931040145409 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:39 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #US46 Both directions from East of CR 613/Passaic Ave to Willowbrook Mall Exit <a href="https://t.co/0Ql7KOIFCd" target="_blank"> link </a>',},
+  id1105904628594626565: {center: {lat: 40.84649, lng: -73.86107},color: '#0000FF',user: 'everylotnyc 1105904628594626565 ·+',device: '<a href="https://fakeisthenewreal.org" rel="nofollow">every lot nyc</a>',time: 'Wed Mar 13 18:53:04 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '845 Morris Park Avenue, the Bronx <a href="https://t.co/rsXWPaJtAN" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+  id1105903427878559744: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511ny456 1105903427878559744 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYTransit</a>',time: 'Wed Mar 13 18:48:18 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #4Line NB from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/LzPX022xsB" target="_blank"> link </a>',},
+
+
+
+
+  id1106193859124580352: {center: {lat: 40.889907, lng: -74.273798},color: '#0000FF',user: '511nyNJ 1106193859124580352 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:02:22 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #US46 EB from East of CR 613/Passaic Ave to Willowbrook Mall Exit <a href="https://t.co/1bz9jjBqmC" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105100145694134272: {center: {lat: 40.7577936, lng: -73.98591185},color: '#0000FF',user: 'Cusenbary 1105100145694134272 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:36:21 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Three days in New York City. It never gets old. @ Times Square, New York City <a href="https://t.co/ZZoVmDw8rk" target="_blank"> link </a>',},
+
+
+
+
+
+  id1106193664936734720: {center: {lat: 40.7142, lng: -74.0064},color: '#008000',user: 'BGDMakeupArtist 1106193664936734720 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:01:36 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'Blessed to be given the talent to do beautiful artistry on everyone. Being a self taught makeup artist I have been… <a href="https://t.co/yIKZFAxo25" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105899140972634113: {center: {lat: 40.7443817, lng: -73.9881626},color: '#0000FF',user: 'Will_Griggs 1105899140972634113 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Wed Mar 13 18:31:16 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Ran into @stoolpresidente on the streets of NYC today ... couldn’t have been nicer @ Barstool Sports <a href="https://t.co/q8RqZQjKsV" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193873032957952: {center: {lat: 40.75407292, lng: -73.97705396},color: '#008000',user: 'AreyAngga 1106193873032957952 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:02:26 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'Poster terbaru film AVENGERS: ENDGAME  therussobrothers  avengers   #avengers #endgame #avengersendgame #marvel… <a href="https://t.co/8Tfui1RGrc" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105903528025874432: {center: {lat: 43.1353028, lng: -77.605827},color: '#0000FF',user: 'tmj_roc_health 1105903528025874432 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:48:42 +0000 2019',locations: '0',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'Nervous to apply for a job like "Sr. Financial Analyst" at Highland Hospital? Apply even if you re not a 100% match… <a href="https://t.co/Fu2K9Z4cJb" target="_blank"> link </a>',},
+
+
+  id1103760076576354311: {center: {lat: 40.747, lng: -73.986},color: '#0000FF',user: 'miguelfronteras 1103760076576354311 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 07 20:51:23 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Just posted a photo @ Midtown East <a href="https://t.co/fVvO30ktRo" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105099427566551045: {center: {lat: 40.75884, lng: -73.97881},color: '#0000FF',user: 'miguelh_10 1105099427566551045 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:33:29 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Galliano and the sunset. #beardporn #beard #muscle #musclecouple #swole #swolemates #tattoo #beardandmuscles… <a href="https://t.co/szrRdvLoRJ" target="_blank"> link </a>',},
+  id1105901904075210752: {center: {lat: 43.16103, lng: -77.6109219},color: '#0000FF',user: 'tmj_ROC_secure 1105901904075210752 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:42:15 +0000 2019',locations: '6',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'See our latest #Rochester, NY job and click to apply: Security Guard FT Office Building Rochester, NY - <a href="https://t.co/2tdUh9VQ78" target="_blank"> link </a>#security ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105902932522872840: {center: {lat: 40.052706, lng: -74.787671},color: '#0000FF',user: '511NY 1105902932522872840 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:46:20 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #NewJerseyTurnpike NB from North of Interchange 5 - CR 541 to South of Interchange 6 - Pennsylvania Turnpike ',},
+
+
+
+
+
+
+
+
+
+
+
+  id1106193999705067520: {center: {lat: 40.7142, lng: -74.0064},color: '#0000FF',user: 'realhairfusion 1106193999705067520 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:02:56 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Naturally Conceal Bald Spots in Seconds with #realhairfusion 100% Real Hair Fibers. Purchase on Amazon or… <a href="https://t.co/tQDcU9CHM7" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105898948735070209: {center: {lat: 40.7127837, lng: -74.0059413},color: '#0000FF',user: 'tmj_nyc_jobs 1105898948735070209 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:30:30 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Click the link in our bio to see currently open jobs like "IT Engineer - NYC" at TMP in #NewYork, NY. ',},
+
+
+
+
+
+
+
+
+
+  id1105902932409704448: {center: {lat: 40.052706, lng: -74.787671},color: '#0000FF',user: '511nyNJ 1105902932409704448 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:46:20 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #NewJerseyTurnpike NB from North of Interchange 5 - CR 541 to South of Interchange 6 - Pennsylvania Turnpike ',},
+
+
+
+
+
+
+  id1105902452950384641: {center: {lat: 40.808666, lng: -73.107856},color: '#0000FF',user: '511nyLongIsland 1105902452950384641 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:44:26 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #RonkonkomaBranch at Ronkonkoma Station ',},
+  id1105904207675224064: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511ny456 1105904207675224064 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYTransit</a>',time: 'Wed Mar 13 18:51:24 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Incident on #5Line from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/LzPX022xsB" target="_blank"> link </a>',},
+
+
+
+  id1105901791999389696: {center: {lat: 40.73442788, lng: -73.92236786},color: '#0000FF',user: 'EstebanDaHost 1105901791999389696 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Wed Mar 13 18:41:48 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'I m at I-278 & I-495 Interchange in Woodside, NY <a href="https://t.co/20TwrJ9ANs" target="_blank"> link </a>',},
+  id1106193934907256833: {center: {lat: 40.887529, lng: -73.878011},color: '#0000FF',user: '511ny456 1106193934907256833 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYTransit</a>',time: 'Thu Mar 14 14:02:40 +0000 2019',locations: '3',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #4Line Both directions from Woodlawn Station to Burnside Avenue Station ',},
+
+
+
+
+
+
+
+
+
+
+
+  id1105898985305325569: {center: {lat: 40.73812878, lng: -74.00346715},color: '#0000FF',user: 'foodjournies 1105898985305325569 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Wed Mar 13 18:30:39 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'A packed cafe to work virtually (@ Grounded in New York, NY) <a href="https://t.co/tT8Z2K9h4I" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+  id1106194171847675905: {center: {lat: 40.72343, lng: -73.95073},color: '#008000',user: 'markverling 1106194171847675905 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:03:37 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'We just tapped some amazing beers to help you get through your Thursday... ⠀⠀⠀⠀⠀⠀⠀⠀⠀ @eqbrewery Fluctuation ⠀⠀⠀⠀⠀⠀⠀… <a href="https://t.co/nWrke3VE4n" target="_blank"> link </a>',},
+
+
+
+  id1105900003820818432: {center: {lat: 42.74748, lng: -74.263355},color: '#0000FF',user: '511nyAlbany 1105900003820818432 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:34:42 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #NY30 at Old Highway 30 <a href="https://t.co/dL4HQu8yzo" target="_blank"> link </a>',},
+  id1106193092053557248: {center: {lat: 40.758098, lng: -73.622802},color: '#0000FF',user: '511nyLongIsland 1106193092053557248 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 13:59:19 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Construction on #NorthernStateParkway WB from Exit 31A - Meadowbrook State Parkway to Exit 25 <a href="-...https://t.co/JcdyrAQWo5" target="_blank"> link </a>',},
+
+
+
+  id1105904205657788416: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511NY 1105904205657788416 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:51:23 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Incident on #5Line from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/sPWWO4fx8C" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+  id1106193680384307202: {center: {lat: 40.666599, lng: -73.995201},color: '#0000FF',user: '511NY 1106193680384307202 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:01:40 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #NY27 WB from START ROUTE NY 27; I-278 - Gowanus Expy; 3rd Avenue to Church Avenue <a href="https://t.co/l1GqL9VwQ5" target="_blank"> link </a>',},
+
+
+  id1105100026139815936: {center: {lat: 40.75671208, lng: -73.98202165},color: '#0000FF',user: 'Zaimoglu67 1105100026139815936 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Mon Mar 11 13:35:52 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'I m at Pret A Manger - @pretusa in New York, NY <a href="https://t.co/bCTsd7f05R" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1105902695486013445: {center: {lat: 40.7207559, lng: -74.0007613},color: '#0000FF',user: 'seilerhomegroup 1105902695486013445 ·+',device: '<a href="http://www.squarespace.com" rel="nofollow">Squarespace</a>',time: 'Wed Mar 13 18:45:23 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Interest Rates Hit New 12 Month Low!  <a href="https://t.co/7XfT0qX0BU" target="_blank"> link </a>',},
+
+
+
+
+
+  id1106193634305536000: {center: {lat: 40.7142, lng: -74.0064},color: '#0000FF',user: 'NELLHeavyMoney 1106193634305536000 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:01:29 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '#HappyBirthday in heaven we love you and miss you! @wallyheavymoney #HMP #RIP @ New York, New York <a href="https://t.co/BUtYKxXeul" target="_blank"> link </a>',},
+
+
+
+
+
+  id1106193110671941632: {center: {lat: 40.7142, lng: -74.0064},color: '#0000FF',user: 'garyrei40392665 1106193110671941632 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 13:59:24 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Successful people have a bigger fear of failure than people who ve never done anything because if you haven t been… <a href="https://t.co/ls3vW0CE6i" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+  id1105122646176550912: {center: {lat: 40.74661787, lng: -73.99175711},color: '#008000',user: 'BeelieveDaHype 1105122646176550912 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 15:05:45 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'HAPPY MONDAY ✨     I don’t know about you, but I’m ready to smash this week as it will be a busy one. Few things happ… <a href="https://t.co/4jctfdPjK7" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1106193919283482626: {center: {lat: 40.663131, lng: -73.9622},color: '#0000FF',user: '511nyBDFV 1106193919283482626 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYTransit</a>',time: 'Thu Mar 14 14:02:37 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #BLine BothDir/BothDir from Prospect Park Station to Kings Highway Station <a href="https://t.co/OLOVO176Sv" target="_blank"> link </a>',},
+
+
+
+  id1105902931335888896: {center: {lat: 40.738987, lng: -73.993716},color: '#0000FF',user: '511NYC 1105902931335888896 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:46:20 +0000 2019',locations: '0',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #ABCDEFGJMNQRWShuttleSIRAnd7 at the 5 Boroughs ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193390868156416: {center: {lat: 40.7127837, lng: -74.0059413},color: '#0000FF',user: 'tmj_NYC_skltrd 1106193390868156416 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Thu Mar 14 14:00:31 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Want to work at Getinge? We re hiring in #NewYork, NY! Click the link in our bio for details on this job and more:… <a href="https://t.co/35k3H6YJtp" target="_blank"> link </a>',},
+
+  id1106194127509749760: {center: {lat: 40.6556702, lng: -74.0069427},color: '#008000',user: 'thebyron 1106194127509749760 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:03:26 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'Yes...I believe they are working together! #betoandkamala #beto2020 #kamalaharris2020 @ Industry City <a href="https://t.co/Zdgzqdx0Oo" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+  id1105102440091725824: {center: {lat: 40.7779, lng: -73.9675},color: '#0000FF',user: 'scissors75 1105102440091725824 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:45:28 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Just posted a photo @ Manhattan, New York <a href="https://t.co/t2d4LKSCF7" target="_blank"> link </a>',},
+
+
+
+
+
+  id1106193235339292672: {center: {lat: 40.73026211, lng: -73.95431418},color: '#0000FF',user: 'thedandylionel 1106193235339292672 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 13:59:54 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '   “To be drunk and in love in New York City!” Congratulations to the new Mr. & Mrs. @missykayko jeffmrcool… <a href="https://t.co/oZP82UAlA5" target="_blank"> link </a>',},
+
+  id1106193244361240578: {center: {lat: 40.68321, lng: -73.68583},color: '#008000',user: 'TotalTrafficNYC 1106193244361240578 ·+',device: '<a href="http://www.sigalert.com/Map.asp?region=New+York" rel="nofollow">TTN NYC traffic</a>',time: 'Thu Mar 14 13:59:56 +0000 2019',locations: '2',orgs: '0',people: '1',links: '0',sentiment: 'POS',text: 'Incident cleared in #FranklinSquare on The Southern St Pkwy WB at Franklin Ave, stop and go traffic back to Hempstead Ave, delay of 3 mins ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105122762417422337: {center: {lat: 40.72679, lng: -73.99235},color: '#0000FF',user: 'Bijules 1105122762417422337 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 15:06:13 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'The lines of this simple ring recall stubborn bull’s horns, sexy bug thorns and empty space. Many #bijulesjewelry p… <a href="https://t.co/YSTsT56aop" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105898845186203648: {center: {lat: 40.758933, lng: -73.978818},color: '#0000FF',user: 'NeverMissEvents 1105898845186203648 ·+',device: '<a href="http://www.nevermissevents.com/nme/index.php" rel="nofollow">NeverMissEvents-New York</a>',time: 'Wed Mar 13 18:30:05 +0000 2019',locations: '0',orgs: '0',people: '0',links: '2',sentiment: 'NEU',text: '#other Stage Door Tour at #RadioCityMusicHall See Details: <a href="https://t.co/hlDM6oGMei" target="_blank"> link </a><a href="https://t.co/YdTD7VdS52" target="_blank"> link </a>',},
+  id1106194045968236544: {center: {lat: 40.797, lng: -73.3421},color: '#0000FF',user: '511NY 1106194045968236544 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:03:07 +0000 2019',locations: '0',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY112 Both directions from I-495 South Service Road to Horseblock Road; CR 16 <a href="https://t.co/VcANf4A9WU" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105902689014018048: {center: {lat: 42.6525793, lng: -73.7562317},color: '#0000FF',user: 'tmj_nya_hrta 1105902689014018048 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:45:22 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'As a team, we love preparing and delivering a great customer experience, being a place people want to be and strivi… <a href="https://t.co/UDbh3n11Xf" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+  id1106193857862123522: {center: {lat: 40.889907, lng: -74.273798},color: '#0000FF',user: '511nyNJ 1106193857862123522 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:02:22 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #US46 Both directions from East of CR 613/Passaic Ave to Willowbrook Mall Exit <a href="https://t.co/4Kavr7esv9" target="_blank"> link </a>',},
+  id1105903704501178368: {center: {lat: 41.7677388, lng: -74.6585326},color: '#0000FF',user: 'tmj_NY_secure 1105903704501178368 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:49:24 +0000 2019',locations: '1',orgs: '2',people: '0',links: '1',sentiment: 'NEU',text: 'Want to land a job like "Full Time Security Officer- Education Facility- Loch Sheldrake, NY" at Allied Universal? A… <a href="https://t.co/8I1tajGPkC" target="_blank"> link </a>',},
+  id1105899107674218496: {center: {lat: 40.71595, lng: -73.96222},color: '#0000FF',user: 'HoodlineWire 1105899107674218496 ·+',device: '<a href="http://www.twitter.com" rel="nofollow">HoodlineTweetBot</a>',time: 'Wed Mar 13 18:31:08 +0000 2019',locations: '2',orgs: '0',people: '0',links: '2',sentiment: 'NEU',text: 'NEW YORK CITY - New Williamsburg pan Asian spot Monarch Theater Restaurant opens its doors <a href="https://t.co/GaCrmuCB1v" target="_blank"> link </a><a href="https://t.co/50lbJxc6F6" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1105898529283690496: {center: {lat: 40.7003793, lng: -73.5929056},color: '#0000FF',user: 'tmj_NAS_cler 1105898529283690496 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:28:50 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Have you ever had a role like "Administrative Assistant"? What did you like most about that job? #Clerical #Uniondale, NY ',},
+
+
+  id1105898905500348417: {center: {lat: 40.850128, lng: -73.945304},color: '#0000FF',user: '511NYC 1105898905500348417 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:30:20 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Construction on #GeorgeWashingtonBridge WB from New York Side/Upper Level to New Jersey Side/Upper Level <a href="https://t.co/pJ8tBAxl8r" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105903865080279040: {center: {lat: 40.71358968, lng: -74.01502637},color: '#0000FF',user: 'arthur2099 1105903865080279040 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Wed Mar 13 18:50:02 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'En la vida de todos siempre hay un día que nunca nunca olvidaras. ———————————————————————- #newyork #ny #nyc… <a href="https://t.co/wdmhq7eIQS" target="_blank"> link </a>',},
+  id1105903430181089281: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511NY 1105903430181089281 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:48:19 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #4Line NB from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/sPWWO3XVK2" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105899758554509312: {center: {lat: 40.7476654, lng: -73.6389038},color: '#0000FF',user: 'tmj_nyc_constru 1105899758554509312 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:33:43 +0000 2019',locations: '1',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'We re hiring in #Mineola, New York! Click the link in our bio to apply to this job and more: Commercial Project Man… <a href="https://t.co/zYosACpJjB" target="_blank"> link </a>',},
+
+
+
+
+  id1105121204803956740: {center: {lat: 40.7401, lng: -74.00621},color: '#0000FF',user: 'CatLeftwich 1105121204803956740 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 15:00:02 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Happy Birthday to this beauty!         #day1 #bestfriendgoals #bestie #sister #rideordie @ Catch NYC <a href="https://t.co/13LV7bykEz" target="_blank"> link </a>',},
+
+
+  id1105465564493959168: {center: {lat: 40.75671208, lng: -73.98202165},color: '#0000FF',user: 'Zaimoglu67 1105465564493959168 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Tue Mar 12 13:48:23 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Good morning Coffee time (@ Pret A Manger - @pretusa in New York, NY) <a href="https://t.co/t1Rykh97Y9" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105099739484188672: {center: {lat: 40.7609482, lng: -73.9663467},color: '#0000FF',user: 'Anderson0525 1105099739484188672 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:34:44 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Celebrating the #mondayblues with the fabulous leahmullerinteriors_ Tap to see who’s #blue with us     ‍♂️ @ John Ros… <a href="https://t.co/Q99nhoTO6H" target="_blank"> link </a>',},
+
+
+  id1105099701483982848: {center: {lat: 40.7779, lng: -73.9675},color: '#0000FF',user: 'melvinalexbeats 1105099701483982848 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:34:35 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Just reached 3 millions plays on my track "Autumn 98" from the #Teaparty Album @ Manhattan, New York <a href="https://t.co/XVWweuEgvJ" target="_blank"> link </a>',},
+
+
+  id1106193173095817216: {center: {lat: 40.776038, lng: -73.029996},color: '#0000FF',user: 'WiseGuys_20 1106193173095817216 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Thu Mar 14 13:59:39 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'I m at Orange Theory Fitness in Patchogue, NY <a href="https://t.co/VCa41lnikl" target="_blank"> link </a>',},
+  id1106193867186024449: {center: {lat: 40.6921, lng: -74.0124},color: '#0000FF',user: '511NY 1106193867186024449 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:24 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Special Event on #BrooklynBatteryTunnel NB at Manhattan Bound ',},
+
+
+
+
+
+
+
+
+
+
+
+  id1105900012108742657: {center: {lat: 40.835899, lng: -73.870101},color: '#0000FF',user: '511NY 1105900012108742657 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:34:44 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Incident on #I95 SB from Rosedale Avenue; Ramp to START ROUTE I-95; George Washington Bridge <a href="https://t.co/RarOGvvA5P" target="_blank"> link </a>',},
+
+
+  id1105903429136908298: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511ny456 1105903429136908298 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYTransit</a>',time: 'Wed Mar 13 18:48:18 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #5Line from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/LzPX022xsB" target="_blank"> link </a>',},
+
+
+
+  id1105120882270171136: {center: {lat: 40.76387622, lng: -73.97957383},color: '#0000FF',user: 'DickStatkus 1105120882270171136 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 14:58:45 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '-—- #ig_nycity #storyofnewyork #in_public_sp #in_public_street_photo #ig_street #streetshot #streetphotography… <a href="https://t.co/lnD5KOkYx8" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105099965171462145: {center: {lat: 40.73362, lng: -74.0004},color: '#0000FF',user: 'miguelh_10 1105099965171462145 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:35:38 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Happy bday Kukulkán #beardporn #beard #muscle #musclecouple #swole #swolemates #tattoo #beardandmuscles #motivation… <a href="https://t.co/XOx9bjIzK2" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1105901901445562369: {center: {lat: 40.850128, lng: -73.945304},color: '#0000FF',user: '511NY 1105901901445562369 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:42:14 +0000 2019',locations: '2',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #GeorgeWashingtonBridge WB from New York Side/Upper Level to New Jersey Side/Upper Level ',},
+
+
+
+
+  id1105902216970469378: {center: {lat: 40.86465, lng: -73.858306},color: '#0000FF',user: 'Decembur13th 1105902216970469378 ·+',device: '<a href="https://onloft.com/tweetlogix" rel="nofollow">Tweetlogix</a>',time: 'Wed Mar 13 18:43:29 +0000 2019',locations: '0',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleanliness is next to godliness! ',},
+
+
+
+
+
+
+
+
+  id1103760532476227605: {center: {lat: 40.76058, lng: -73.96432},color: '#0000FF',user: 'TotalTrafficNYC 1103760532476227605 ·+',device: '<a href="http://www.sigalert.com/Map.asp?region=New+York" rel="nofollow">TTN NYC traffic</a>',time: 'Thu Mar 07 20:53:12 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Accident cleared in #AreaOfUpperEastRiverCrossings:59thStEdKochBrLowerN.y.c. on The Queensboro EB between Manhattan Side and Queens Side ',},
+
+  id1106194070324563968: {center: {lat: 40.8346, lng: -73.3815},color: '#0000FF',user: '511nyLongIsland 1106194070324563968 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:03:13 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY25 Both directions at Totten Avenue <a href="https://t.co/x3FdWRJ9NI" target="_blank"> link </a>',},
+
+
+
+
+  id1106193347113181185: {center: {lat: 40.7127837, lng: -74.0059413},color: '#0000FF',user: 'tmj_nyc_transp 1106193347113181185 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Thu Mar 14 14:00:20 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'If you re looking for work in Girard, Ohio, check out this Driver job via the link in our bio: CDL-A Truck Driver |… <a href="https://t.co/A5Q33YERQ5" target="_blank"> link </a>',},
+
+
+  id1106193145228865536: {center: {lat: 40.7142, lng: -74.0064},color: '#008000',user: 'unleashfit 1106193145228865536 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 13:59:32 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: '  Thursday    #tbt to my first ever @ideafit event in LA, took a group class cert with @RickRichey  good times great… <a href="https://t.co/qkC64U9fHk" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+  id1105902333186199552: {center: {lat: 40.7142, lng: -74.0064},color: '#0000FF',user: 'wmcbridephoto 1105902333186199552 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Wed Mar 13 18:43:57 +0000 2019',locations: '2',orgs: '0',people: '3',links: '1',sentiment: 'NEU',text: 'Sending LOVE to our Liza with a Z. LIZA Minnelli photograph by: Walter McBride @ New York, New York <a href="https://t.co/ZbpR9K6SxV" target="_blank"> link </a>',},
+  id1105122797485985792: {center: {lat: 40.77112, lng: -73.97419},color: '#008000',user: 'LegiScanNY 1105122797485985792 ·+',device: '<a href="http://legiscan.com/" rel="nofollow">eLobbyist</a>',time: 'Mon Mar 11 15:06:21 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'POS',text: 'S00386 [NEW] Establishes a giving internships for disabled veterans not fully employed program (G.I.V.E Back NY); a… <a href="https://t.co/magwGHYvpS" target="_blank"> link </a>',},
+  id1105121298546655232: {center: {lat: 40.749717, lng: -73.991653},color: '#0000FF',user: '511NY 1105121298546655232 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Mon Mar 11 15:00:24 +0000 2019',locations: '2',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #PortWashingtonBranch at New York Penn Station ',},
+
+
+
+
+  id1105122821783650304: {center: {lat: 40.7573195, lng: -74.0026753},color: '#0000FF',user: 'CarreraCasting1 1105122821783650304 ·+',device: '<a href="https://www.hootsuite.com" rel="nofollow">Hootsuite Inc.</a>',time: 'Mon Mar 11 15:06:27 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Come visit the Carrera family at The MJSA/JA EXPO booth: 411!!! Innovators in jewelry casting since 1975. #mjsa2019… <a href="https://t.co/wqqymjBpJG" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105465643321692160: {center: {lat: 40.74880129, lng: -73.96830797},color: '#0000FF',user: 'SoccerWomenPLAY 1105465643321692160 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Tue Mar 12 13:48:42 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '#HealthforAll Through Women s Human Rights | Soccer Women PLAY for #Goal3 Good Health and Wellness | 63rd Annual Un… <a href="https://t.co/DcZEewDYOU" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105903799724470272: {center: {lat: 40.7836826, lng: -73.4298073},color: '#0000FF',user: 'tmj_NAS_mgmt 1105903799724470272 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:49:47 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Can you recommend anyone for this #BusinessMgmt job in #Melville, NY? Click the link in our bio to see it and more.… <a href="https://t.co/EksBNe9zLL" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106194063039057920: {center: {lat: 40.8092, lng: -73.1856},color: '#0000FF',user: '511nyLongIsland 1106194063039057920 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:03:11 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Construction on #NY454 Both directions from I-495 to Roosevelt Avenue <a href="https://t.co/0KDcaFJMbH" target="_blank"> link </a>',},
+
+
+
+
+  id1103758791470927873: {center: {lat: 40.77112, lng: -73.97419},color: '#0000FF',user: 'LegiScanNY 1103758791470927873 ·+',device: '<a href="http://legiscan.com/" rel="nofollow">eLobbyist</a>',time: 'Thu Mar 07 20:46:17 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'S03997 [NEW] Requires the preparation of a neighborhood impact statement prior to the construction of a homeless sh… <a href="https://t.co/nwE6UkxfHM" target="_blank"> link </a>',},
+
+
+
+
+  id1103758797795819520: {center: {lat: 40.7779, lng: -73.9675},color: '#0000FF',user: 'lifeinmotionnyc 1103758797795819520 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 07 20:46:18 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Who’s down for an early weekend challenge         ? . . Join toya_goree for 3 consecutive days and end the weekend with… <a href="https://t.co/ttC7uiLJj9" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+  id1105899689851977728: {center: {lat: 40.709701, lng: -73.820297},color: '#0000FF',user: '511NYC 1105899689851977728 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:33:27 +0000 2019',locations: '3',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #I678 Both directions from Queens Boulevard; NY 25 to Hillside Avenue ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193858667446272: {center: {lat: 40.726022, lng: -73.475103},color: '#0000FF',user: '511nyLongIsland 1106193858667446272 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:02:22 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY135 Both directions from Exit 7 - Hempstead Turnpike - NY 24 to Exit 14W - NY 25; <a href="Jericho...https://t.co/ltAUV66OcS" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106194038682722306: {center: {lat: 40.6735, lng: -73.2724},color: '#0000FF',user: '511NY 1106194038682722306 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:03:05 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #RobertMosesCauseway NB at Great South Bay Bridge <a href="https://t.co/fcosDguiNF" target="_blank"> link </a>',},
+
+  id1105464995763105793: {center: {lat: 40.73134, lng: -74.000551},color: '#0000FF',user: 'hamletsvintage 1105464995763105793 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Tue Mar 12 13:46:08 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Spring Teasers by @hamletsvintage  #manhattan #vintagestyle #vintagestore #march2019#newyorkcity #timeless… <a href="https://t.co/ZKH6GCNcjO" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+  id1106193962895884289: {center: {lat: 40.663131, lng: -73.9622},color: '#0000FF',user: '511NY 1106193962895884289 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:47 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #BLine BothDir/BothDir from Prospect Park Station to Kings Highway Station <a href="https://t.co/nmmuWPV0fK" target="_blank"> link </a>',},
+
+  id1105899175562993664: {center: {lat: 40.71414021, lng: -74.0007637},color: '#0000FF',user: 'pbump 1105899175562993664 ·+',device: '<a href="http://pbump.net" rel="nofollow">pbump.net</a>',time: 'Wed Mar 13 18:31:24 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Team Trump has now amassed two-and-a-half presidential terms of prison time. <a href="https://t.co/A7uqDyzMLh" target="_blank"> link </a>',},
+
+  id1103760340662145024: {center: {lat: 40.73010219, lng: -73.99984127},color: '#0000FF',user: 'NYUDining 1103760340662145024 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 07 20:52:26 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '“How much cereal is too much cereal?” Happy #nationalcerealday! #nyudining #cerealday . . . #nyueats #trixcereal… <a href="https://t.co/vm9Dt4hbQZ" target="_blank"> link </a>',},
+
+
+  id1105899099914539009: {center: {lat: 40.71142, lng: -73.94751},color: '#0000FF',user: 'HoodlineWire 1105899099914539009 ·+',device: '<a href="http://www.twitter.com" rel="nofollow">HoodlineTweetBot</a>',time: 'Wed Mar 13 18:31:06 +0000 2019',locations: '2',orgs: '0',people: '0',links: '2',sentiment: 'NEU',text: 'NEW YORK CITY - Mad For Chicken brings wings and more to Williamsburg <a href="https://t.co/oopm5FsDjv" target="_blank"> link </a><a href="https://t.co/cna7jaJWuc" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105122536755466241: {center: {lat: 40.767711, lng: -73.991784},color: '#0000FF',user: 'MercedesClubNYC 1105122536755466241 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 15:05:19 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Winter is finally coming to a close. Find your way out of that winter cocoon and get rejuvenated at our Spa! Schedu… <a href="https://t.co/hdaaEDRl5l" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193677024743425: {center: {lat: 40.72939, lng: -74.00717},color: '#0000FF',user: 'KherkCobain 1106193677024743425 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:01:39 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '     ITS TIME      (Link In Bio) SALUTE @DJKASTONE @HOT97 ROCKIN W THE UNICORN  #JerseyGods #ItsTime #JerseyClub @ HOT… <a href="https://t.co/LO5cLSvFLU" target="_blank"> link </a>',},
+
+  id1106194055388647424: {center: {lat: 40.7836, lng: -73.1056},color: '#0000FF',user: '511nyLongIsland 1106194055388647424 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:03:09 +0000 2019',locations: '0',orgs: '0',people: '2',links: '1',sentiment: 'NEU',text: 'Construction on #NY454 EB from Orville Drive to Johnson Avenue; CR 112 <a href="https://t.co/1D5r58muWy" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105901662399594496: {center: {lat: 40.7207559, lng: -74.0007613},color: '#0000FF',user: 'ComicsNowCast 1105901662399594496 ·+',device: '<a href="http://www.squarespace.com" rel="nofollow">Squarespace</a>',time: 'Wed Mar 13 18:41:17 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Dark Horse release schedule and panels for Emerald City Comic-Con  <a href="https://t.co/QT74yVcIAX" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+  id1105904205699653632: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511NYC 1105904205699653632 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:51:24 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Incident on #5Line from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/u5z8OYcd20" target="_blank"> link </a>',},
+  id1105898903185039360: {center: {lat: 40.850128, lng: -73.945304},color: '#0000FF',user: '511NY 1105898903185039360 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:30:19 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Construction on #GeorgeWashingtonBridge WB from New York Side/Upper Level to New Jersey Side/Upper Level <a href="https://t.co/XayNvm3K4d" target="_blank"> link </a>',},
+
+  id1106193916699774976: {center: {lat: 40.889198, lng: -73.8152},color: '#0000FF',user: '511NY 1106193916699774976 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:36 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #HutchinsonRiverParkwayWestchester NB from Bronx-Westchester County Line; Exit 7 - US 1; <a href="START...https://t.co/Fdzjfrl4Av" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193925130387462: {center: {lat: 40.726022, lng: -73.475103},color: '#0000FF',user: '511NY 1106193925130387462 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:38 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY135 Both directions from Exit 7 - Hempstead Turnpike - NY 24 to Exit 14W - NY 25; <a href="Jericho...https://t.co/KHancxKNjL" target="_blank"> link </a>',},
+
+
+
+
+
+  id1105899676832858113: {center: {lat: 40.709701, lng: -73.820297},color: '#0000FF',user: '511NY 1105899676832858113 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:33:24 +0000 2019',locations: '3',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #I678 Both directions from Queens Boulevard; NY 25 to Hillside Avenue ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105100339836059649: {center: {lat: 40.76177209, lng: -74.00106584},color: '#0000FF',user: 'sdmack 1105100339836059649 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:37:07 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Noel Ashman and Michael Strahan @ Lucky Strike New York <a href="https://t.co/EvDISRQq8k" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1106193331757957126: {center: {lat: 42.66187, lng: -73.74382},color: '#008000',user: 'ninepincider 1106193331757957126 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:00:17 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'Join us in the Nine Pin tasting room on Friday, April 5th for an exciting opening night celebrating the art and inc… <a href="https://t.co/8CKGMlz5UB" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+  id1106193339332870146: {center: {lat: 40.7207559, lng: -74.0007613},color: '#0000FF',user: 'IgniteServices 1106193339332870146 ·+',device: '<a href="http://www.squarespace.com" rel="nofollow">Squarespace</a>',time: 'Thu Mar 14 14:00:18 +0000 2019',locations: '0',orgs: '1',people: '1',links: '1',sentiment: 'NEU',text: 'Comedian Peter Buchenbauer stays at The Gryphon House!  <a href="https://t.co/ds1xgTLJI7" target="_blank"> link </a>',},
+
+  id1106193873276145664: {center: {lat: 40.604351, lng: -74.051658},color: '#0000FF',user: '511NY 1106193873276145664 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:26 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Special Event on #VerrazanonarrowsBridge EB at Brooklyn Bound Upper Level ',},
+
+
+
+
+
+  id1106193636956336128: {center: {lat: 40.77912331, lng: -73.96298187},color: '#0000FF',user: 'PedroRGuerreroR 1106193636956336128 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:01:29 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Pale Blue Eyes. #TheVelvetUnderground #musiclover #music #photography #greek #manhattan #nyc #art #head #face #us @… <a href="https://t.co/ifZXqnaAiL" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+  id1105099775236558849: {center: {lat: 40.73492, lng: -73.98827},color: '#0000FF',user: 'prettylou11 1105099775236558849 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:34:52 +0000 2019',locations: '0',orgs: '0',people: '3',links: '1',sentiment: 'NEU',text: 'ALL AGES NYC TRISTATE THE BIGGEST CANCER & ALS CHARITY SHOW IS GOING DOWN  TUESDAY APRIL 16th is Our 3rd Annual Con… <a href="https://t.co/hcGXTjzohj" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105903431066308609: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511NY 1105903431066308609 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:48:19 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #5Line from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/sPWWO4fx8C" target="_blank"> link </a>',},
+
+  id1105898677896429568: {center: {lat: 39.548358, lng: -74.732912},color: '#0000FF',user: '511nyNJ 1105898677896429568 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:29:26 +0000 2019',locations: '0',orgs: '0',people: '2',links: '1',sentiment: 'NEU',text: 'Construction on #AtlanticCityExpressway EB from East of Frank S. Farley Service Plaza to East of Frank S. <a href="Farley...https://t.co/OgA2WxGP05" target="_blank"> link </a>',},
+
+
+  id1105901910270316545: {center: {lat: 40.847641, lng: -73.934855},color: '#0000FF',user: '511NYC 1105901910270316545 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:42:16 +0000 2019',locations: '2',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #GeorgeWashingtonBridge WB from Lower Trans Manhattan Expressway to New York Side/Lower Level ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193729067630594: {center: {lat: 40.65, lng: -73.95},color: '#0000FF',user: 'AkiraOne 1106193729067630594 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:01:51 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: '@ghostfacekillah #WuWednesday this was for yesterday but IG was all screwed up. #AkiraRuizPhotography #ARvision… <a href="https://t.co/lHnyLX9exU" target="_blank"> link </a>',},
+  id1105099918824226819: {center: {lat: 40.76027, lng: -73.97614},color: '#0000FF',user: 'AaronFaberGlry 1105099918824226819 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:35:27 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Just an alexsepkus kind of Monday #longerdays #sunshine #littlewindows #weddingdays #whatsyourfavorite… <a href="https://t.co/pbwqF6NRnq" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+  id1105902444549038080: {center: {lat: 42.4709046, lng: -77.1055262},color: '#008000',user: 'USSJobs 1105902444549038080 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:44:24 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'POS',text: 'Interested in a job in #Wayne, NY? This could be a great fit: <a href="https://t.co/2qm5Q3bDfq" target="_blank"> link </a>#Nursing ',},
+
+
+
+
+  id1106194052930785283: {center: {lat: 40.696601, lng: -73.2882},color: '#0000FF',user: '511NY 1106194052930785283 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:03:08 +0000 2019',locations: '0',orgs: '0',people: '2',links: '1',sentiment: 'NEU',text: 'Construction on #NY27A WB from Exit   - Robert Moses Causeway to Cooper Street <a href="https://t.co/rFXNMgm2IZ" target="_blank"> link </a>',},
+
+
+
+
+  id1106194040721166339: {center: {lat: 40.7836, lng: -73.1056},color: '#0000FF',user: '511NY 1106194040721166339 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:03:06 +0000 2019',locations: '0',orgs: '0',people: '2',links: '1',sentiment: 'NEU',text: 'Construction on #NY454 EB from Orville Drive to Johnson Avenue; CR 112 <a href="https://t.co/2XlmwtclTj" target="_blank"> link </a>',},
+  id1105901902645133312: {center: {lat: 40.847641, lng: -73.934855},color: '#0000FF',user: '511NY 1105901902645133312 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:42:14 +0000 2019',locations: '2',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #GeorgeWashingtonBridge WB from Lower Trans Manhattan Expressway to New York Side/Lower Level ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105899513456312322: {center: {lat: 40.74530618, lng: -73.94837379},color: '#0000FF',user: 'EstebanDaHost 1105899513456312322 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Wed Mar 13 18:32:45 +0000 2019',locations: '6',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'I m at Long Island City, NY in Long Island City, NY <a href="https://t.co/6uVt1xyjEg" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106194067375996928: {center: {lat: 40.758098, lng: -73.622802},color: '#0000FF',user: '511nyLongIsland 1106194067375996928 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:03:12 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Construction on #NorthernStateParkway WB from Exit 31A - Meadowbrook State Parkway to Exit 25 - Lakeville <a href="Road;...https://t.co/Rog4EuKmvk" target="_blank"> link </a>',},
+
+
+
+
+  id1103760081596936199: {center: {lat: 40.7577936, lng: -73.98591185},color: '#0000FF',user: 'Taqi_ 1103760081596936199 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 07 20:51:24 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'It’s amazing how as a collective there’s no real outrage. #TaqisTake @ Times Square, New York City <a href="https://t.co/UrkziQipR1" target="_blank"> link </a>',},
+
+  id1103760084532899841: {center: {lat: 40.7577936, lng: -73.98591185},color: '#0000FF',user: 'michelleosoriom 1103760084532899841 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 07 20:51:25 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Would you sing in public?     #throwbackthursdays to when I turned being alone in NYC into a MUSICAL! Are you brave… <a href="https://t.co/hDp9MR2zzf" target="_blank"> link </a>',},
+
+
+
+  id1106193170327617536: {center: {lat: 40.77618705, lng: -73.97591456},color: '#0000FF',user: 'theresamariedb 1106193170327617536 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 13:59:38 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Patiently waiting for warmer days☀️  ... So who else went crazy yesterday during the Instagram blackout ? I totally… <a href="https://t.co/VxWTcbT3US" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105115884648042496: {center: {lat: 40.74049029, lng: -74.00600511},color: '#0000FF',user: 'TheBiancaLopez 1105115884648042496 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 14:38:53 +0000 2019',locations: '0',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: '@ShaneGolden Darling baby brother @ Soho House New York <a href="https://t.co/6b07NfhZ4W" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+  id1105901699745505280: {center: {lat: 40.732398, lng: -73.8432},color: '#0000FF',user: '511NYC 1105901699745505280 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:41:26 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Updated: Incident on #GrandCentralParkway WB at Exit 11 - Jewel Avenue; Ramp <a href="https://t.co/2yU8c4AmxZ" target="_blank"> link </a>',},
+
+
+
+
+  id1105099697151188993: {center: {lat: 40.75884, lng: -73.97881},color: '#0000FF',user: 'miguelh_10 1105099697151188993 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:34:34 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'The world is yours, but you have to move! #beardporn #beard #muscle #musclecouple #swole #swolemates #tattoo… <a href="https://t.co/Ky744itS0D" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105902931247808520: {center: {lat: 41.247398, lng: -73.819702},color: '#0000FF',user: '511NYMidHudson 1105902931247808520 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:46:20 +0000 2019',locations: '0',orgs: '1',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #NY129 EB from Rustic Ridge Court to Underhill Avenue; CR 131 ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105903113398034432: {center: {lat: 40.86056, lng: -73.06862},color: '#008000',user: 'TotalTrafficNYC 1105903113398034432 ·+',device: '<a href="http://www.sigalert.com/Map.asp?region=New+York" rel="nofollow">TTN NYC traffic</a>',time: 'Wed Mar 13 18:47:03 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'Accident in #Centereach on NY Rt-25 EB at CR-97, stop and go traffic back to Eastwood Blvd, delay of 2 mins #traffic <a href="https://t.co/cLJ9IKsg5n" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1106193856574509057: {center: {lat: 40.642945, lng: -74.648323},color: '#0000FF',user: '511nyNJ 1106193856574509057 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:02:22 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #I78 Both directions from Exit 29 - I-287/US 202/US 206 to Exit 41 - Dale Rd to Plainfield Ave <a href="https://t.co/DPSwSXyBZX" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+  id1105464794734383111: {center: {lat: 40.74555556, lng: -73.95861111},color: '#0000FF',user: 'mich__match 1105464794734383111 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Tue Mar 12 13:45:20 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'first run for #nyrr #popularbkhalf #training was great     ‍♀️ .. had the whole waterfront to myself, it’s like every… <a href="https://t.co/Nz0MJnulmV" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+  id1105901721186820096: {center: {lat: 40.7127837, lng: -74.0059413},color: '#0000FF',user: 'tmj_NYC_schn 1105901721186820096 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:41:31 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Can you recommend anyone for this #SupplyChain job in #NewYork, NY? Click the link in our bio to see it and more. Process Manager at Jet ',},
+
+
+
+  id1105898946818383872: {center: {lat: 40.75622709, lng: -73.95298199},color: '#0000FF',user: 'EstebanDaHost 1105898946818383872 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Wed Mar 13 18:30:30 +0000 2019',locations: '2',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'I m at Ed Koch Queensboro Bridge in Queens, NY <a href="https://t.co/kuKP2liUGz" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105122451388854277: {center: {lat: 40.73776, lng: -74.00802},color: '#FF0000',user: 'stephenesherman 1105122451388854277 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 15:04:59 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEG',text: '#NYFW - Street photographers have a love/hate relationship with #FashionWeek. We complain about the venues, the cro… <a href="https://t.co/QHX6SOVTX2" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193304323059713: {center: {lat: 40.9415, lng: -73.8644},color: '#0000FF',user: 'CMunch523 1106193304323059713 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:00:10 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Back to an old favorite spot #parkinggarage #parkinggaragesofinstagram #parkinggarages #artiseverywhere… <a href="https://t.co/2X7fLs2MCF" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+  id1105899679701762048: {center: {lat: 40.734298, lng: -73.722702},color: '#0000FF',user: '511NY 1105899679701762048 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:33:24 +0000 2019',locations: '3',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #BeltSystemCrossIslandParkway Both directions from Hillside Avenue; NY 25B to Linden Boulevard ',},
+
+
+
+
+  id1106193921934327809: {center: {lat: 40.7142, lng: -74.0064},color: '#008000',user: 'blushandblooms 1106193921934327809 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:02:37 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'POS',text: 'Instagram is back! Cue “I’m a survivor” by Destiny’s Child    All jokes aside I was surprisingly happy about the out… <a href="https://t.co/7d9Dpf37VA" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1105902479810523136: {center: {lat: 40.7127837, lng: -74.0059413},color: '#0000FF',user: 'tmj_nyc_acct 1105902479810523136 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:44:32 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Can you recommend anyone for this job in #NewYork, NY? <a href="https://t.co/Cq8qwdkFbg" target="_blank"> link </a>#Accounting ',},
+
+
+
+
+
+
+
+
+
+
+  id1106194068743380995: {center: {lat: 40.696601, lng: -73.2882},color: '#0000FF',user: '511nyLongIsland 1106194068743380995 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:03:12 +0000 2019',locations: '0',orgs: '0',people: '2',links: '1',sentiment: 'NEU',text: 'Construction on #NY27A WB from Exit   - Robert Moses Causeway to Cooper Street <a href="https://t.co/JGWIv9RNEM" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+  id1105900011173396486: {center: {lat: 42.74748, lng: -74.263355},color: '#0000FF',user: '511NY 1105900011173396486 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:34:43 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Incident on #NY30 at Old Highway 30 <a href="https://t.co/PjvTyiPuJQ" target="_blank"> link </a>',},
+
+  id1106193871195783169: {center: {lat: 40.744132, lng: -73.962407},color: '#0000FF',user: '511NY 1106193871195783169 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:25 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Special Event on #QueensMidtownTunnel WB at Manhattan Bound ',},
+
+
+
+
+
+
+
+  id1105898672804585473: {center: {lat: 39.548358, lng: -74.732912},color: '#0000FF',user: '511NY 1105898672804585473 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:29:24 +0000 2019',locations: '0',orgs: '0',people: '2',links: '1',sentiment: 'NEU',text: 'Construction on #AtlanticCityExpressway EB from East of Frank S. Farley Service Plaza to East of Frank S. <a href="Farley...https://t.co/24OaVF7g0P" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+  id1106194024728330240: {center: {lat: 41.6822, lng: -72.9337},color: '#008000',user: 'CurtMan2k20 1106194024728330240 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:03:02 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: '#thinkinthinkin #machoman #ooohyeah #digit @wwe #wwemayhemgame ...supposed to nice today,already 42degrees here in… <a href="https://t.co/rpTeK2YbJt" target="_blank"> link </a>',},
+
+
+
+
+
+  id1105121270318788608: {center: {lat: 40.7602619, lng: -73.9932872},color: '#0000FF',user: 'tmj_nyc_acct 1105121270318788608 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Mon Mar 11 15:00:17 +0000 2019',locations: '1',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'Actus Consulting Group is hiring in #NewYork, NY! Read about our latest #Accounting job opening via the link in our… <a href="https://t.co/U428yB6CEz" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+  id1105901592593776645: {center: {lat: 40.71916, lng: -74.00615},color: '#0000FF',user: 'NikiHatzidis 1105901592593776645 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Wed Mar 13 18:41:00 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'My team is back at @pilotstheshow tonight at 7pm at Town Stages! Come say what happens to the mother/daughter duo i… <a href="https://t.co/PN45wOinoL" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193659093934080: {center: {lat: 40.7779, lng: -73.9675},color: '#0000FF',user: 'Michell10348958 1106193659093934080 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:01:35 +0000 2019',locations: '2',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'Maravilhoso estar com vocês ❤❤ #grandcentral  #timesquare  #M&M #manhattan  #nyc em Manhattan, New York <a href="https://t.co/dDyd7OjNeA" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105898522916859904: {center: {lat: 40.77884182, lng: -73.95421078},color: '#0000FF',user: 'SLiM_GeM86 1105898522916859904 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Wed Mar 13 18:28:49 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'I m at Ulta Beauty in New York, NY <a href="https://t.co/eU1qYDDxvw" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105901701201100801: {center: {lat: 42.061, lng: -76.328796},color: '#0000FF',user: '511nyBinghamton 1105901701201100801 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:41:26 +0000 2019',locations: '2',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #NY17 WB from Exit 63 - CR 54; Stunton Hill Road to Exit 62 - NY 282 ',},
+
+
+
+
+
+  id1106193918968975366: {center: {lat: 40.735698, lng: -73.247596},color: '#0000FF',user: '511NY 1106193918968975366 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:02:37 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY27 Both directions from Brook Avenue to Exit 45 - NY 111; Islip Avenue <a href="https://t.co/8jXjr0vfis" target="_blank"> link </a>',},
+
+
+
+
+
+
+  id1105465467844612097: {center: {lat: 40.7753, lng: -73.9642},color: '#0000FF',user: '_MichaelWerner_ 1105465467844612097 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Tue Mar 12 13:48:00 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Installation view of, “Jörg Immendorff: Questions From a Painter Who Reads”, on view at Michael Werner Gallery, New… <a href="https://t.co/z8y7p33ZRO" target="_blank"> link </a>',},
+
+  id1105903779231268865: {center: {lat: 40.827016, lng: -73.878581},color: '#0000FF',user: 'JulioCsarJr 1105903779231268865 ·+',device: '<a href="https://onloft.com/tweetlogix" rel="nofollow">Tweetlogix</a>',time: 'Wed Mar 13 18:49:42 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'este video lo grabé desde uno de los palcos de prensa del Marlins Park ubicado por el right field, los dominicanos… <a href="https://t.co/wpCBEb88KJ" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105901684629360640: {center: {lat: 42.061, lng: -76.328796},color: '#0000FF',user: '511NY 1105901684629360640 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:41:22 +0000 2019',locations: '2',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #NY17 WB from Exit 63 - CR 54; Stunton Hill Road to Exit 62 - NY 282 ',},
+  id1105465066558771200: {center: {lat: 40.7594161, lng: -73.98017733},color: '#0000FF',user: 'WarrenPitchfork 1105465066558771200 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Tue Mar 12 13:46:25 +0000 2019',locations: '0',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'Good for you homie      drandallblythe @ NBC Studios Rockefeller Centre <a href="https://t.co/omYaPtoT8b" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1106193092011585536: {center: {lat: 40.758098, lng: -73.622802},color: '#0000FF',user: '511NY 1106193092011585536 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 13:59:19 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Construction on #NorthernStateParkway WB from Exit 31A - Meadowbrook State Parkway to Exit 25 <a href="-...https://t.co/UWPejL87Pm" target="_blank"> link </a>',},
+
+
+
+
+
+
+  id1105902056487829505: {center: {lat: 40.0583238, lng: -74.4056612},color: '#0000FF',user: 'tmj_NJ_it 1105902056487829505 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:42:51 +0000 2019',locations: '1',orgs: '2',people: '0',links: '0',sentiment: 'NEU',text: 'We re hiring in NJ! Click the link in our bio to apply to this job and more: Senior Java Developer - SS&C GlobeOp at SS&C Technologies ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105901695001874433: {center: {lat: 40.732398, lng: -73.8432},color: '#0000FF',user: '511NY 1105901695001874433 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:41:25 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Updated: Incident on #GrandCentralParkway WB at Exit 11 - Jewel Avenue; Ramp <a href="https://t.co/dCwjWZbtJK" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105904204269277184: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511ny456 1105904204269277184 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYTransit</a>',time: 'Wed Mar 13 18:51:23 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Incident on #4Line NB from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/LzPX01KW41" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+  id1105902559691239424: {center: {lat: 40.64512192, lng: -73.78460884},color: '#0000FF',user: 'MegTucker20 1105902559691239424 ·+',device: '<a href="http://foursquare.com" rel="nofollow">Foursquare</a>',time: 'Wed Mar 13 18:44:51 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'I m at John F. Kennedy International Airport - @jfkairport in Queens, NY <a href="https://t.co/VROZs9sJxe" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+  id1105901846873366528: {center: {lat: 40.7612957, lng: -73.7330753},color: '#0000FF',user: 'tmj_NAS_nursing 1105901846873366528 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:42:01 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'White Glove Placement is hiring in Little Neck, NY! Read about our latest Nursing job opening via the link in our b… <a href="https://t.co/H42eetr071" target="_blank"> link </a>',},
+
+  id1105122466412797952: {center: {lat: 40.75276014, lng: -73.97732434},color: '#0000FF',user: 'NessyEater 1105122466412797952 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 15:05:02 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'HOT DOG TIME        . .   ✈️ Nessy Eater in New York      . . #nessyeater #nessyeaterfood #snappyhappy #yum #delights… <a href="https://t.co/q1homeEdlX" target="_blank"> link </a>',},
+  id1106193857560088576: {center: {lat: 40.663131, lng: -73.9622},color: '#0000FF',user: '511NYC 1106193857560088576 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:02:22 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #BLine BothDir/BothDir from Prospect Park Station to Kings Highway Station <a href="https://t.co/c1XMPWTmzL" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106193856574431234: {center: {lat: 40.735698, lng: -73.247596},color: '#0000FF',user: '511nyLongIsland 1106193856574431234 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:02:22 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY27 Both directions from Brook Avenue to Exit 45 - NY 111; Islip Avenue <a href="https://t.co/8548iSR2N3" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105899580858621952: {center: {lat: 40.7127837, lng: -74.0059413},color: '#0000FF',user: 'tmj_nyc_eng 1105899580858621952 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:33:01 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Can you recommend anyone for this job in #NewYork, NY? <a href="https://t.co/gRDNv1aOBT" target="_blank"> link </a>#Engineering ',},
+
+
+
+
+
+
+
+
+
+  id1105904703290802176: {center: {lat: 40.7127837, lng: -74.0059413},color: '#008000',user: 'tmj_nyc_adv 1105904703290802176 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:53:22 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'POS',text: 'Interested in a job in #NewYork, NY? This could be a great fit. Click the link in our bio to apply: Senior SEO Spec… <a href="https://t.co/SxWTxsMTdR" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+  id1105898586422677504: {center: {lat: 40.71098913, lng: -74.00404355},color: '#0000FF',user: 'NYC_Missed 1105898586422677504 ·+',device: '<a href="https://dlvrit.com/" rel="nofollow">dlvr.it</a>',time: 'Wed Mar 13 18:29:04 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'I am Looking for Advice/ Please Reach out (Danbury) <a href="https://t.co/ez0TDyrfOm" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+  id1105903633520947200: {center: {lat: 40.7536854, lng: -73.9991637},color: '#0000FF',user: 'tmj_nyc_legal 1105903633520947200 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:49:07 +0000 2019',locations: '0',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'Don t submit then quit. Apply for jobs like "JDHuntr In-House Counsel Jobs 27989 Assistant General Counsel –..." at… <a href="https://t.co/diV50OA7Qs" target="_blank"> link </a>',},
+
+
+
+
+
+  id1106194071834378240: {center: {lat: 40.76149865, lng: -73.97719029},color: '#0000FF',user: 'AmirDankner 1106194071834378240 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:03:13 +0000 2019',locations: '0',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'We Can Do It Anywhere ! @ MoMA The Museum of Modern Art <a href="https://t.co/5FCMuUELLs" target="_blank"> link </a>',},
+
+
+
+  id1106194042017234944: {center: {lat: 40.6935, lng: -73.507797},color: '#0000FF',user: '511NY 1106194042017234944 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:03:06 +0000 2019',locations: '2',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY105 Both directions from Wantagh Avenue to Hicksville Road; NY 107; END ROUTE; Jerusalem Avenue <a href="https://t.co/FYQXDk2T15" target="_blank"> link </a>',},
+
+
+
+
+  id1105898529065701376: {center: {lat: 40.7207559, lng: -74.0007613},color: '#0000FF',user: 'OmegaSpider227 1105898529065701376 ·+',device: '<a href="http://www.squarespace.com" rel="nofollow">Squarespace</a>',time: 'Wed Mar 13 18:28:50 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Fortnite Lawsuits Put on Ice for the Foreseeable Future  <a href="https://t.co/dVTzIgeEms" target="_blank"> link </a>',},
+
+
+  id1106193510049480704: {center: {lat: 40.887529, lng: -73.878011},color: '#0000FF',user: '511NY 1106193510049480704 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Thu Mar 14 14:00:59 +0000 2019',locations: '3',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #4Line Both directions from Woodlawn Station to Burnside Avenue Station ',},
+
+
+
+
+
+
+
+  id1105904032139235328: {center: {lat: 40.7127837, lng: -74.0059413},color: '#008000',user: 'tmj_nyc_mgmt 1105904032139235328 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:50:42 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'This #BusinessMgmt job might be a great fit for you. Click the link in our bio to see it and more. Manager, Product… <a href="https://t.co/WYwqKGVcC5" target="_blank"> link </a>',},
+
+  id1105899578786631680: {center: {lat: 40.7659783, lng: -73.019343},color: '#0000FF',user: 'tmj_NAS_labor 1105899578786631680 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:33:00 +0000 2019',locations: '1',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Want to work at 84 Lumber? We re hiring in #Patchogue, NY! Click the link in our bio for details on this job and mo… <a href="https://t.co/SjkyOkDiBs" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+  id1105465467844612097: {center: {lat: 40.7753, lng: -73.9642},color: '#0000FF',user: '_MichaelWerner_ 1105465467844612097 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Tue Mar 12 13:48:00 +0000 2019',locations: '0',orgs: '0',people: '1',links: '1',sentiment: 'NEU',text: 'Installation view of, “Jörg Immendorff: Questions From a Painter Who Reads”, on view at Michael Werner Gallery, New… <a href="https://t.co/z8y7p33ZRO" target="_blank"> link </a>',},
+
+
+
+
+
+
+  id1105902453906722817: {center: {lat: 40.808666, lng: -73.107856},color: '#0000FF',user: '511NY 1105902453906722817 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:44:26 +0000 2019',locations: '1',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Incident on #RonkonkomaBranch at Ronkonkoma Station ',},
+
+
+
+  id1105898921337982977: {center: {lat: 40.7207559, lng: -74.0007613},color: '#008000',user: 'Darkstation_com 1105898921337982977 ·+',device: '<a href="http://www.squarespace.com" rel="nofollow">Squarespace</a>',time: 'Wed Mar 13 18:30:24 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'Mark admired the handmade microscale modeling that shape the unique visuals of point-and-click adventure… <a href="https://t.co/gA2EpDxfab" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105898374505488384: {center: {lat: 43.1530599, lng: -77.6364299},color: '#0000FF',user: 'tmj_roc_manuf 1105898374505488384 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:28:13 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'If you re looking for work in #Rochester, NY, check out this #Manufacturing job via the link in our bio: Supervisor… <a href="https://t.co/0wre7FkgDL" target="_blank"> link </a>',},
+
+
+
+  id1105902931562377216: {center: {lat: 41.247398, lng: -73.819702},color: '#0000FF',user: '511NY 1105902931562377216 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:46:20 +0000 2019',locations: '0',orgs: '1',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #NY129 EB from Rustic Ridge Court to Underhill Avenue; CR 131 ',},
+  id1105904204240035840: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511NYC 1105904204240035840 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:51:23 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Incident on #4Line NB from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/u5z8OYcd20" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105904199605329920: {center: {lat: 40.71315, lng: -74.003974},color: '#0000FF',user: '511NY 1105904199605329920 ·+',device: '<a href="https://511ny.org" rel="nofollow">511NY-Tweets</a>',time: 'Wed Mar 13 18:51:22 +0000 2019',locations: '4',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Updated: Incident on #4Line NB from Brooklyn Bridge-City Hall Station to 42nd Street-Grand Central Station <a href="https://t.co/sPWWO4fx8C" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105100177831067651: {center: {lat: 40.76149865, lng: -73.97719029},color: '#FF0000',user: 'miguelh_10 1105100177831067651 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:36:28 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEG',text: 'God seeing from behind. #beardporn #beard #muscle #musclecouple #swole #swolemates #tattoo #beardandmuscles… <a href="https://t.co/ZJbjojlHC1" target="_blank"> link </a>',},
+
+
+  id1105899543877439488: {center: {lat: 40.7555465, lng: -73.9808543},color: '#0000FF',user: 'tmj_nyc_itdb 1105899543877439488 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:32:52 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'If you re looking for work in #NewYork, NY, check out this #Database job via the link in our bio: Programmer/System… <a href="https://t.co/OnYCPgPdd4" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+  id1105898406092783616: {center: {lat: 40.2975698, lng: -73.9861419},color: '#0000FF',user: 'nwkmeddevice 1105898406092783616 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:28:21 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Join the RWJBH team! See our latest job opening here: <a href="https://t.co/q78E5xZTSX" target="_blank"> link </a>#MedicalDevices #LongBranch, NJ ',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105099540137476096: {center: {lat: 40.76969305, lng: -73.99279692},color: '#008000',user: 'Lizzzoxox 1105099540137476096 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Mon Mar 11 13:33:56 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'POS',text: 'Not only was I front row for my favorite bad but they wished me happy birthday   21 just keeps getting better @ TER… <a href="https://t.co/ko8V1LMbGn" target="_blank"> link </a>',},
+  id1106193790186987521: {center: {lat: 40.7048872, lng: -74.0123736},color: '#0000FF',user: '_MusicTraveler 1106193790186987521 ·+',device: '<a href="https://www.hootsuite.com" rel="nofollow">Hootsuite Inc.</a>',time: 'Thu Mar 14 14:02:06 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Follow your passion and keep working on your dreams. Let the music guide you Music Travelers ❤️  ⁣ <a href="https://t.co/qskG3honCB" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+  id1106193334639513600: {center: {lat: 40.7142, lng: -74.0064},color: '#0000FF',user: '_selfmade_redd 1106193334639513600 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Thu Mar 14 14:00:17 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'More colors available on the website only..... Link In Bio !!!!! #wealthyempireclothing  #cozy #clothingbrand… <a href="https://t.co/ixa7pii35A" target="_blank"> link </a>',},
+  id1105903698646130688: {center: {lat: 40.925214, lng: -75.067464},color: '#0000FF',user: '511nyNJ 1105903698646130688 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:49:23 +0000 2019',locations: '1',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #I80 WB at East of Exit 4 - NJ 94/US 46 <a href="https://t.co/hK221o0NXI" target="_blank"> link </a>',},
+
+
+
+  id1105902850994065408: {center: {lat: 40.76088387, lng: -73.8303445},color: '#0000FF',user: 'calicoemw 1105902850994065408 ·+',device: '<a href="https://www.swarmapp.com" rel="nofollow">Foursquare Swarm</a>',time: 'Wed Mar 13 18:46:01 +0000 2019',locations: '3',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'I m at Foo Kee Seafood Restaurant 富记 in Flushing, NY <a href="https://t.co/wovIsuz5uV" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1106194066495229952: {center: {lat: 40.797, lng: -73.3421},color: '#0000FF',user: '511nyLongIsland 1106194066495229952 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Thu Mar 14 14:03:12 +0000 2019',locations: '0',orgs: '1',people: '0',links: '1',sentiment: 'NEU',text: 'Construction on #NY112 Both directions from I-495 South Service Road to Horseblock Road; CR 16 <a href="https://t.co/uevQ2kzCRB" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  id1105901908772954112: {center: {lat: 40.850128, lng: -73.945304},color: '#0000FF',user: '511NYC 1105901908772954112 ·+',device: '<a href="https://511ny.org" rel="nofollow">NYRegions</a>',time: 'Wed Mar 13 18:42:16 +0000 2019',locations: '2',orgs: '0',people: '0',links: '0',sentiment: 'NEU',text: 'Cleared: Construction on #GeorgeWashingtonBridge WB from New York Side/Upper Level to New Jersey Side/Upper Level ',},
+  id1105903877767999490: {center: {lat: 40.77340201, lng: -73.86917011},color: '#0000FF',user: 'kennys001 1105903877767999490 ·+',device: '<a href="http://instagram.com" rel="nofollow">Instagram</a>',time: 'Wed Mar 13 18:50:05 +0000 2019',locations: '0',orgs: '1',people: '1',links: '1',sentiment: 'NEU',text: 'Flying from LGA to MIA today. Not comforting to see the headline top of fold - Boeing, but I have faith.… <a href="https://t.co/tIFNx6K656" target="_blank"> link </a>',},
+  id1105899624466796544: {center: {lat: 41.5861122, lng: -71.9917381},color: '#0000FF',user: 'tmj_cte_cosmo 1105899624466796544 ·+',device: '<a href="https://www.careerarc.com" rel="nofollow">CareerArc 2.0</a>',time: 'Wed Mar 13 18:33:11 +0000 2019',locations: '0',orgs: '0',people: '0',links: '1',sentiment: 'NEU',text: 'Don t be shy. Score a job like "Beauty Advisor" at Ulta Beauty by asking for referrals. It s a great way to get a m… <a href="https://t.co/kvcAA7aDm0" target="_blank"> link </a>',},
+
+
+
+
+
+
+
+
+
+
+};
+
+function showNewRect(user, device, time, locations, orgs, people, links, sentiment, text) {
+  	//alert(this.fillColor);
+	//alert(x);
+  document.getElementById('info').innerHTML =
+							"<b>User:</b> <a href=\"https://twitter.com/"+user+"\" target=\"_blank\">"+user+"</a>"+
+							'<br><b>Application: </b>' + device +
+							'<br><b>Time: </b>' + time +
+              '<br><b>Locations: </b>' + locations +
+              '<br><b>Organizations: </b>' + orgs +
+              '<br><b>People: </b>' + people +
+              '<br><b>Links: </b>' + links +
+              '<br><b>Sentiment: </b>' + sentiment +
+							'<br><b>Text: </b>' + text;
+
+}
+
+function initMap() {
+  // Create the map.
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 13,
+    center: {lat: 40.7549, lng: -73.9840},
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  // Construct the circle for each value in citymap.
+  // Note: We scale the area of the circle based on the population.
+  for (var city in citymap) {
+    // Add the circle for this city to the map.
+    var cityCircle = new google.maps.Circle({
+      strokeColor: citymap[city].color,
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: citymap[city].color,
+      fillOpacity: 0.35,
+      map: map,
+      center: citymap[city].center,
+      radius: 50
+    });
+
+	//cityCircle.addListener('click', showNewRect);
+
+  var createCallback = function(innerCity){
+    	return function() {showNewRect(	citymap[innerCity].user,
+										citymap[innerCity].device,
+										citymap[innerCity].time,
+                    citymap[innerCity].locations,
+                    citymap[innerCity].orgs,
+                    citymap[innerCity].people,
+                    citymap[innerCity].links,
+                    citymap[innerCity].sentiment,
+										citymap[innerCity].text);
+                  };
+	};
+
+    cityCircle.addListener("click", createCallback(city), false);
+
+  }
+
+}
+
+var createAdd = function () {
+    var counter = 0;
+    return function () {return counter += 1;}
+};
+
+var add = createAdd();
+
+
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDK71wZ4Or4wLPVpS-zMrd_gj8rYKslS70&signed_in=true&callback=initMap"></script>
+  </body>
+</html>
